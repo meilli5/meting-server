@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  macOS 定时任务：每天自动刷新 QQ Music Cookie
+
+  安装：
+    cp scripts/com.firefly.meting-cookie-refresh.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.firefly.meting-cookie-refresh.plist
+
+  卸载：
+    launchctl unload ~/Library/LaunchAgents/com.firefly.meting-cookie-refresh.plist
+    rm ~/Library/LaunchAgents/com.firefly.meting-cookie-refresh.plist
+
+  手动触发一次：
+    launchctl start com.firefly.meting-cookie-refresh
+
+  查看状态：
+    launchctl list | grep meting
+ -->
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.firefly.meting-cookie-refresh</string>
+
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/bash</string>
+		<string>/Users/a1-6/Firefly/meting-server/scripts/refresh-cookie.sh</string>
+		<string>--auto</string>
+	</array>
+
+	<!-- 每天上午 10 点和晚上 10 点各执行一次 -->
+	<key>StartCalendarInterval</key>
+	<array>
+		<dict>
+			<key>Hour</key>
+			<integer>10</integer>
+			<key>Minute</key>
+			<integer>7</integer>
+		</dict>
+		<dict>
+			<key>Hour</key>
+			<integer>22</integer>
+			<key>Minute</key>
+			<integer>7</integer>
+		</dict>
+	</array>
+
+	<!-- 日志 -->
+	<key>StandardOutPath</key>
+	<string>/Users/a1-6/Firefly/meting-server/.cookie-refresh.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/a1-6/Firefly/meting-server/.cookie-refresh.log</string>
+
+	<!-- 环境变量 -->
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PATH</key>
+		<string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/Users/a1-6/Library/pnpm</string>
+		<key>HOME</key>
+		<string>/Users/a1-6</string>
+	</dict>
+
+	<!-- 即使错过了预定时间，也在下次机会执行 -->
+	<key>RunAtLoad</key>
+	<false/>
+</dict>
+</plist>

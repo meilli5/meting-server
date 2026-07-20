@@ -1,0 +1,23 @@
+{
+  "name": "firefly-meting-api",
+  "version": "1.1.0",
+  "type": "module",
+  "description": "Custom Meting API server with QQ Music cookie support for Firefly blog",
+  "scripts": {
+    "start": "node server.js",
+    "refresh-cookie": "node scripts/refresh-cookie.mjs",
+    "refresh-cookie:update": "node scripts/refresh-cookie.mjs --update",
+    "refresh-cookie:force": "node scripts/refresh-cookie.mjs --force-login",
+    "check-cookie": "node scripts/check-cookie.mjs",
+    "check-cookie:server": "node scripts/check-cookie.mjs --server",
+    "health": "node scripts/check-cookie.mjs --server"
+  },
+  "dependencies": {
+    "@meting/core": "^1.6.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}

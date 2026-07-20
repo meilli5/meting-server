@@ -131,11 +131,7 @@ async function updateRailwayViaApi(cookieStr) {
 			Authorization: `Bearer ${token}`,
 		},
 		body: JSON.stringify({
-			query: `
-				mutation variableUpsert($input: VariableUpsertInput!) {
-					variableUpsert(input: $input) { name }
-				}
-			`,
+			query: "mutation variableUpsert($input: VariableUpsertInput!) { variableUpsert(input: $input) }",
 			variables: {
 				input: {
 					projectId,

@@ -3,3 +3,4 @@ node_modules/
 .browser-profile/
 .tencent-cookie
 .cookie-refresh.log
+.DS_Store

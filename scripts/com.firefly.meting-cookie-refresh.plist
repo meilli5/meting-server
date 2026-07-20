@@ -3,6 +3,11 @@
 <!--
   macOS 定时任务：每天自动刷新 QQ Music Cookie
 
+  ⚠️ 使用前必须替换所有 __PROJECT_DIR__ 和 __HOME__ 为你的实际路径！
+
+  快速替换（macOS）：
+    sed -i '' "s|__PROJECT_DIR__|$(pwd)|g; s|__HOME__|$HOME|g" scripts/com.firefly.meting-cookie-refresh.plist
+
   安装：
     cp scripts/com.firefly.meting-cookie-refresh.plist ~/Library/LaunchAgents/
     launchctl load ~/Library/LaunchAgents/com.firefly.meting-cookie-refresh.plist
@@ -11,7 +16,7 @@
     launchctl unload ~/Library/LaunchAgents/com.firefly.meting-cookie-refresh.plist
     rm ~/Library/LaunchAgents/com.firefly.meting-cookie-refresh.plist
 
-  手动触发一次：
+  手动触发：
     launchctl start com.firefly.meting-cookie-refresh
 
   查看状态：
@@ -25,11 +30,11 @@
 	<key>ProgramArguments</key>
 	<array>
 		<string>/bin/bash</string>
-		<string>/Users/a1-6/Firefly/meting-server/scripts/refresh-cookie.sh</string>
+		<string>__PROJECT_DIR__/scripts/refresh-cookie.sh</string>
 		<string>--auto</string>
 	</array>
 
-	<!-- 每天上午 10 点和晚上 10 点各执行一次 -->
+	<!-- 每天 11:25, 16:25, 21:25 各执行一次 -->
 	<key>StartCalendarInterval</key>
 	<array>
 		<dict>
@@ -54,20 +59,19 @@
 
 	<!-- 日志 -->
 	<key>StandardOutPath</key>
-	<string>/Users/a1-6/Firefly/meting-server/.cookie-refresh.log</string>
+	<string>__PROJECT_DIR__/.cookie-refresh.log</string>
 	<key>StandardErrorPath</key>
-	<string>/Users/a1-6/Firefly/meting-server/.cookie-refresh.log</string>
+	<string>__PROJECT_DIR__/.cookie-refresh.log</string>
 
 	<!-- 环境变量 -->
 	<key>EnvironmentVariables</key>
 	<dict>
 		<key>PATH</key>
-		<string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/Users/a1-6/Library/pnpm</string>
+		<string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:__HOME__/Library/pnpm</string>
 		<key>HOME</key>
-		<string>/Users/a1-6</string>
+		<string>__HOME__</string>
 	</dict>
 
-	<!-- 即使错过了预定时间，也在下次机会执行 -->
 	<key>RunAtLoad</key>
 	<false/>
 </dict>

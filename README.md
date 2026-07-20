@@ -65,7 +65,7 @@ launchctl start com.firefly.meting-cookie-refresh
 launchctl unload ~/Library/LaunchAgents/com.firefly.meting-cookie-refresh.plist
 ```
 
-默认每天 **10:07** 和 **22:07** 自动刷新。日志保存在 `.cookie-refresh.log`。
+默认每天 **11:25**, **16:25** 和 **21:25** 自动刷新。日志保存在 `.cookie-refresh.log`。
 
 ### 手动刷新
 
@@ -93,16 +93,16 @@ pnpm check-cookie:server <服务器URL>
 ## 工作原理
 
 ```
-┌─────────────┐    每 12h     ┌──────────────┐    HTTP API    ┌─────────────┐
+┌─────────────┐    每 12h    ┌──────────────┐    HTTP API   ┌─────────────┐
 │  launchd /  │ ───────────→ │  Playwright  │ ────────────→ │  Railway /  │
-│  cron       │              │  浏览器       │  更新环境变量   │  VPS        │
+│  cron       │              │  浏览器      │  更新环境变量 │  VPS        │
 └─────────────┘              └──────────────┘               └─────────────┘
                                    │                              │
                                    │ QQ 登录态                    │ qqmusic_key
-                                   │ (数周有效期)                  │ (2天有效期)
+                                   │ (数周有效期)                 │ (2天有效期)
                                    ▼                              ▼
-                             ┌──────────┐                 ┌──────────────┐
-                             │  y.qq.com │ ──签发新的──→ │ QQ Music CDN │
+                             ┌──────────┐                ┌──────────────┐
+                             │  y.qq.com│  ──签发新的──→ │ QQ Music CDN │
                              └──────────┘   qqmusic_key  └──────────────┘
 ```
 
